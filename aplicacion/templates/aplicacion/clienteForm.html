@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block titulo %}
-    Agregar cliente
+    Agregar Cliente
 {% endblock titulo %}
 
 
 {% block contenido %}
-    <h2>Agregar un cliente</h2>
+    <h2>Agregar un Cliente</h2>
     <form action="" method="post">
         {% csrf_token %}
         <p>Cliente: <input type="text" name="nombre" id="nombre"></p>

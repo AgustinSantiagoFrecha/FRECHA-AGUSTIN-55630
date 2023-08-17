@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block titulo %}
-    Buscar Vehiculo
+    Buscar Vehículo
 {% endblock titulo %}
 
 
 {% block contenido %}
-    <h2>Buscar Vehiculo</h2>
+    <h2>Buscar Vehículo</h2>
     <form action="/buscar2" method="get">
         {% csrf_token %}
         <p>Vehiculo a buscar: <input type="text" name="buscar" id="buscar"></p>

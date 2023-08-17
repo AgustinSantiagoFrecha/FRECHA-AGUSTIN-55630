@@ -11,11 +11,11 @@ def clientes(request):
     return render(request, "aplicacion/clientes.html", contexto)
 
 def vehiculos(request):
-    contexto = {'vehiculos': Vehiculo.objects.all(), 'titulo' : 'Listado de Vehiculos'}
+    contexto = {'vehiculos': Vehiculo.objects.all(), 'titulo' : 'Listado de Vehículos'}
     return render(request, "aplicacion/vehiculos.html", contexto)
 
 def mecanicos(request):
-    contexto = {'mecanicos': Mecanico.objects.all(), 'titulo' : 'Listado de Mecanicos'}
+    contexto = {'mecanicos': Mecanico.objects.all(), 'titulo' : 'Listado de Mecánicos'}
     return render(request, "aplicacion/mecanicos.html", contexto)
 
 def clientesForm(request):
@@ -95,7 +95,7 @@ def buscar2(request):
     if request.GET['buscar']:
         patron = request.GET['buscar']
         vehiculos = Vehiculo.objects.filter(modelo__icontains=patron)
-        contexto = {"vehiculos": vehiculos, 'titulo': f'Modelos de Vehiculos que tienen el patron= "{patron}"'}
+        contexto = {"vehiculos": vehiculos, 'titulo': f'Modelos de Vehículos que tienen el patron= "{patron}"'}
         return render(request,"aplicacion/vehiculos.html", contexto)
     return HttpResponse("No se ingreso nada.")
 

@@ -1,0 +1,17 @@
+{% extends 'aplicacion/base.html' %}
+{% load static %}
+
+{% block titulo %}
+    Buscar Vehiculo
+{% endblock titulo %}
+
+
+{% block contenido %}
+    <h2>Buscar Vehiculo</h2>
+    <form action="/buscar2" method="get">
+        {% csrf_token %}
+        <p>Vehiculo a buscar: <input type="text" name="buscar" id="buscar"></p>
+        <input type="submit" value="Enviar">
+
+    </form>
+{% endblock contenido %}

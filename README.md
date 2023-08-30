@@ -9,8 +9,7 @@ vehiculo_form4/ (Luego de agregar al cliente hay que agregar a su vehiculo parti
 
 mecanico_form3/ (Para agregar mecanicos)
 
-Luego tenemos un formulario para facilitar la busqueda de informacion de los vehiculos del taller en la base de datos=
-buscar_vehiculo/
+Luego tenemos un formulario para buscar a los vehículos del taller
 
 El superuser es=
 usuario = admin

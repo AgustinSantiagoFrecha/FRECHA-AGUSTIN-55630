@@ -2,18 +2,18 @@
 {% load static %}
 
 {% block titulo %}
-    <h1>Pagina de Clientes</h1>
+    <h1>Pagina de Vehículos en venta</h1>
 {% endblock titulo %}
 
 
 {% block contenido %}
     <h1>{{ titulo }}</h1>
-    <h4>Cantidad de Clientes {{ clientes|length }}</h4>
-    <h2>Clientes
+    <h4>Cantidad de Vehiculos en venta {{ autosVenta|length }}</h4>
+    <h2>Vehículos en venta
         <tr>
             <td>
                 <a
-                href="{% url 'cliente_form2' %}"
+                href="{% url 'autosVenta_form' %}"
                 class="btn btn-primary btn-sm"
                 ><i class="fa fa-plus fa-lg" title="New Record"> </i>
                 </a>
@@ -23,29 +23,33 @@
         <thead>
             <tr>
                 <th>id</th>
-                <th>nombre</th>
-                <th>telefono</th>
-                <th>mail</th>
+                <th>marca</th>
+                <th>modelo</th>
+                <th>anio</th>
+                <th>kilometraje</th>
+                <th>precio</th>
                 <th> </th>
-                <th>acciones</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-    {% for c in clientes  %}
+    {% for a in autosVenta  %}
             <tr>
-                <td> {{ c.id }} </td>
-                <td> {{ c.nombre }} </td>
-                <td> {{ c.telefono }} </td>
-                <td> {{ c.mail }} </td>
-                <td> {{ c.acciones }} </td>
+                <td> {{ a.id }} </td>
+                <td> {{ a.marca }} </td>
+                <td> {{ a.modelo }} </td>
+                <td> {{ a.anio }} </td>
+                <td> {{ a.kilometraje }} </td>
+                <td> {{ a.precio }} </td>
+                <td> {{ a.Acciones }} </td>
                 <td>
                     <a
-                    href="{% url 'modifCliente' id_cliente=c.id %}"
+                    href="{% url 'modifAutoVenta' id_autosVenta=a.id %}"
                     class="btn btn-primary"
                     style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
                     ><i class="fa fa-edit fa-sm" title="Edit Record"></i>
                     <a
-                        href="{% url 'deleteCliente' id_cliente=c.id %}"
+                        href="{% url 'deleteAutoVenta' id_autosVenta=a.id %}"
                         class="btn btn-danger"
                         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
                         ><i class="fa fa-trash fa-sm" title="Delete Record"></i>

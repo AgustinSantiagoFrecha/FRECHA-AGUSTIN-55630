@@ -4,3 +4,5 @@ from .models import *
 admin.site.register(Cliente)
 admin.site.register(Vehiculo)
 admin.site.register(Mecanico)
+admin.site.register(Producto)
+admin.site.register(AutosVenta)

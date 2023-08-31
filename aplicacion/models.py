@@ -27,6 +27,7 @@ class Vehiculo(models.Model):
     ano = models.IntegerField()
     propietario = models.CharField(max_length=50)
     problema = models.CharField(max_length=50)
+    imagen = models.ImageField(upload_to="autos")
 
     def __str__(self):
         return f"{self.modelo}, {self.propietario}"
@@ -37,6 +38,7 @@ class AutosVenta(models.Model):
     anio = models.IntegerField()
     kilometraje = models.PositiveBigIntegerField()
     precio = models.PositiveBigIntegerField()
+    imagen = models.ImageField(upload_to="autos")
 
     def __str__(self):
         return f"{self.modelo}, {self.marca}"
@@ -45,6 +47,7 @@ class Producto(models.Model):
     tipo_producto = models.CharField(max_length=50)
     marca = models.CharField(max_length=50)
     precio = models.IntegerField()
+    imagen = models.ImageField(upload_to="autos")
     
     def __str__(self):
         return f"{self.marca} - {self.tipo_producto}"
@@ -56,9 +59,3 @@ class Avatar(models.Model):
     def __str__(self):
         return f"{self.user} {self.imagen}"
     
-class imagenes(models.Model):
-    imagen = models.ImageField(upload_to="Autos")
-    accion = models.ForeignKey(AutosVenta, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.accion} {self.imagen}"

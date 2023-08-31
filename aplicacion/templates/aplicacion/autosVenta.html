@@ -33,6 +33,9 @@
                 <td>{{ a.kilometraje }}</td>
                 <td>{{ a.precio }}</td>
                 <td>{{ a.acciones }}</td>
+                <td>{% if a.imagen %}</td>
+                <td><img src="{{ a.imagen.url }}" alt="auto"></td>
+                <td>{% endif %}</td>
                 <td>
                     <a href="{% url 'modifAutoVenta' id_autosVenta=a.id %}" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                         <i class="fa fa-edit fa-sm" title="Edit Record"></i>

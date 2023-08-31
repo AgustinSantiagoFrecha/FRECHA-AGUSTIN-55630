@@ -131,19 +131,21 @@ def autosVenta_form(request):
             autosVenta_anio = miForm.cleaned_data.get('anio') 
             autosVenta_kilometraje = miForm.cleaned_data.get('kilometraje')
             autosVenta_precio = miForm.cleaned_data.get('precio')
+            autosVenta_imagen = miForm.cleaned_data.get('imagen')
             
             autosVenta = AutosVenta(marca=autosVenta_marca,
                                     modelo=autosVenta_modelo,
                                     anio=autosVenta_anio, 
                                     kilometraje=autosVenta_kilometraje,
-                                    precio=autosVenta_precio)
+                                    precio=autosVenta_precio,
+                                    imagen=autosVenta_imagen)
             autosVenta.save()
             return render(request, "aplicacion/base.html")
 
     else:
         miForm = AutosVentaForm()
 
-    return render(request, "aplicacion/autosVentaForm.html", {"form": miForm})
+    return render(request, "aplicacion/autosVentaForm_form.html", {"form": miForm})
 
 @login_required
 @permission_required('')
@@ -276,14 +278,14 @@ def deleteVehiculo(request, id_vehiculo):
 def modifAutoVenta(request, id_autosVenta):
     autosVenta = AutosVenta.objects.get(id=id_autosVenta)
     if request.method == "POST":
-        miForm = AutosVentaForm(request.POST)
+        miForm = AutosVentaForm(request.POST, request.FILES)
         if miForm.is_valid():
             autosVenta.marca = miForm.cleaned_data.get('marca')
             autosVenta.modelo = miForm.cleaned_data.get('modelo')
             autosVenta.anio = miForm.cleaned_data.get('anio')
             autosVenta.kilometraje = miForm.cleaned_data.get('kilometraje')
             autosVenta.precio = miForm.cleaned_data.get('precio')
-            
+            autosVenta.imagen = miForm.cleaned_data.get('imagen')            
             autosVenta.save()
             return redirect(reverse_lazy('autosVenta'))
 
@@ -294,6 +296,7 @@ def modifAutoVenta(request, id_autosVenta):
             'anio': autosVenta.anio,
             'kilometraje': autosVenta.kilometraje,
             'precio': autosVenta.precio,
+            'imagen':autosVenta.imagen,
         })
     return render(request, "aplicacion/autosVentaForm_form.html", {"form": miForm})
 

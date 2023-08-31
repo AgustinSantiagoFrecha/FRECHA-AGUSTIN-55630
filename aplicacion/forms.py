@@ -19,6 +19,7 @@ class VehiculoForm(forms.Form):
     ano = forms.IntegerField(required=True)
     propietario = forms.CharField(max_length=50, required=True)
     problema = forms.CharField(max_length=50, required=True)
+    imagen = forms.ImageField(required=True)
 
 class AutosVentaForm(forms.Form):
     marca = forms.CharField(max_length=50, required=True)
@@ -26,11 +27,13 @@ class AutosVentaForm(forms.Form):
     anio = forms.IntegerField(required=True)
     kilometraje = forms.IntegerField(required=True)
     precio = forms.IntegerField(required=True)
+    imagen = forms.ImageField(required=True)
 
 class ProductoForm(forms.Form):
     tipo_producto = forms.CharField(max_length=50, required=True)
     marca = forms.CharField(max_length=50, required=True)
     precio = forms.IntegerField(required=True)
+    imagen = forms.ImageField(required=True)
 
 class RegistroUsuariosForm(UserCreationForm):
     email = forms.EmailField(label="Email de usuario")
@@ -55,5 +58,3 @@ class UserEditForm(UserCreationForm):
 class AvatarFormulario(forms.Form):
     imagen = forms.ImageField(required=True)
 
-class autosFormulario(forms.Form):
-    imagen = forms.ImageField(required=True)

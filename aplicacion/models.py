@@ -55,3 +55,10 @@ class Avatar(models.Model):
 
     def __str__(self):
         return f"{self.user} {self.imagen}"
+    
+class imagenes(models.Model):
+    imagen = models.ImageField(upload_to="Autos")
+    accion = models.ForeignKey(AutosVenta, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.accion} {self.imagen}"

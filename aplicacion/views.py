@@ -11,6 +11,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth       import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import *
+from django.contrib.auth.decorators import permission_required
 
 def home(request):
     return render(request, "aplicacion/home.html")
@@ -43,6 +44,7 @@ def autosVenta(request):
     return render(request, "aplicacion/autosVenta.html", contexto)
 
 @login_required
+@permission_required('')
 def clientesForm(request):
     if request.method == "POST":
         cliente = Cliente(nombre=request.POST['nombre'],
@@ -53,6 +55,7 @@ def clientesForm(request):
     return render(request, "aplicacion/clienteForm.html")
 
 @login_required
+@permission_required('')
 def clienteForm2(request):
     if request.method == "POST":
         miForm = ClienteForm(request.POST)
@@ -72,6 +75,7 @@ def clienteForm2(request):
     return render(request, "aplicacion/clienteForm2.html", {"form":miForm})
 
 @login_required
+@permission_required('')
 def mecanicoForm3(request):
     if request.method == "POST":
         miForm = MecanicoForm(request.POST)
@@ -93,6 +97,7 @@ def mecanicoForm3(request):
     return render(request, "aplicacion/mecanicoForm3.html", {"form":miForm})
 
 @login_required
+@permission_required('')
 def vehiculoForm4(request):
     if request.method == "POST":
         miForm = VehiculoForm(request.POST)
@@ -116,6 +121,7 @@ def vehiculoForm4(request):
     return render(request, "aplicacion/vehiculoForm4.html", {"form":miForm})
 
 @login_required
+@permission_required('')
 def autosVenta_form(request):
     if request.method == "POST":
         miForm = AutosVentaForm(request.POST)
@@ -140,6 +146,7 @@ def autosVenta_form(request):
     return render(request, "aplicacion/autosVentaForm.html", {"form": miForm})
 
 @login_required
+@permission_required('')
 def producto_form(request):
     if request.method == "POST":
         miForm = ProductoForm(request.POST)
@@ -174,6 +181,7 @@ def buscar2(request):
     return HttpResponse("No se ingreso nada.")
 
 @login_required
+@permission_required('')
 def modifMecanico(request, id_mecanico):
     mecanico = Mecanico.objects.get(id=id_mecanico)
     if request.method == "POST":
@@ -196,12 +204,14 @@ def modifMecanico(request, id_mecanico):
     return render(request, "aplicacion/mecanicoForm3.html", {"form":miForm})
 
 @login_required
+@permission_required('')
 def deleteMecanico(request, id_mecanico):
     mecanico = Mecanico.objects.get(id=id_mecanico)
     mecanico.delete()
     return redirect(reverse_lazy('mecanicos'))
 
 @login_required
+@permission_required('')
 def modifCliente(request, id_cliente):
     cliente = Cliente.objects.get(id=id_cliente)
     if request.method == "POST":
@@ -222,12 +232,14 @@ def modifCliente(request, id_cliente):
     return render(request, "aplicacion/clienteForm2.html", {"form":miForm})
 
 @login_required
+@permission_required('')
 def deleteCliente(request, id_cliente):
     cliente = Cliente.objects.get(id=id_cliente)
     cliente.delete()
     return redirect(reverse_lazy('clientes'))
 
 @login_required
+@permission_required('')
 def modifVehiculo(request, id_vehiculo):
     vehiculo = Vehiculo.objects.get(id=id_vehiculo)
     if request.method == "POST":
@@ -253,12 +265,14 @@ def modifVehiculo(request, id_vehiculo):
     return render(request, "aplicacion/vehiculoForm4.html", {"form":miForm})
 
 @login_required
+@permission_required('')
 def deleteVehiculo(request, id_vehiculo):
     vehiculo = Vehiculo.objects.get(id=id_vehiculo)
     vehiculo.delete()
     return redirect(reverse_lazy('vehiculos'))
 
 @login_required
+@permission_required('')
 def modifAutoVenta(request, id_autosVenta):
     autosVenta = AutosVenta.objects.get(id=id_autosVenta)
     if request.method == "POST":
@@ -284,12 +298,14 @@ def modifAutoVenta(request, id_autosVenta):
     return render(request, "aplicacion/autosVentaForm_form.html", {"form": miForm})
 
 @login_required
+@permission_required('')
 def deleteAutoVenta(request, id_autosVenta):
     autosVenta = AutosVenta.objects.get(id=id_autosVenta)
     autosVenta.delete()
     return redirect(reverse_lazy('autosVenta'))
 
 @login_required
+@permission_required('')
 def modifProducto(request, id_producto):
     producto = Producto.objects.get(id=id_producto)
     if request.method == "POST":
@@ -311,6 +327,7 @@ def modifProducto(request, id_producto):
     return render(request, "aplicacion/Producto_form.html", {"form": miForm})
 
 @login_required
+@permission_required('')
 def deleteProducto(request, id_producto):
     producto = Producto.objects.get(id=id_producto)
     producto.delete()

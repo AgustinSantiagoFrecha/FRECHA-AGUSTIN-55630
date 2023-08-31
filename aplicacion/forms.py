@@ -54,3 +54,6 @@ class UserEditForm(UserCreationForm):
 
 class AvatarFormulario(forms.Form):
     imagen = forms.ImageField(required=True)
+
+class autosFormulario(forms.Form):
+    imagen = forms.ImageField(required=True)

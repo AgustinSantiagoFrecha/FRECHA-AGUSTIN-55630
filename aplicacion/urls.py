@@ -1,7 +1,9 @@
 from django.urls import path, include
 from .views import *
+from django.contrib.auth.views import LogoutView
 urlpatterns = [
     path('', home, name="home" ),
+    path('acercaDeMi/', acercaDeMi, name="acercaDeMi"),
     path('clientes/', clientes, name="clientes" ),
     path('vehiculos/', vehiculos, name="vehiculos" ),
     path('mecanicos/', mecanicos, name="mecanicos" ),
@@ -30,4 +32,11 @@ urlpatterns = [
     path('deleteAutoVenta/<id_autosVenta>/', deleteAutoVenta, name="deleteAutoVenta"),
 
     path('modifProducto/<id_producto>/', modifProducto, name="modifProducto"),
+    path('deleteProducto/<id_producto>/', deleteProducto, name="deleteProducto"),
+
+    path('login/', login_request, name="login"),
+    path('logout/', LogoutView.as_view(template_name="aplicacion/logout.html"), name="logout"),
+    path('registro/', register, name="registro"),
+    path('editar_perfil/', editarPerfil, name="editar_perfil"),
+    path('agregar_avatar/', agregarAvatar, name="agregar_avatar"),
 ]

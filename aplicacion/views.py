@@ -5,20 +5,34 @@ from .forms import *
 from django.urls import reverse_lazy
 # Create your views here.
 from django.views.generic import UpdateView
+
+
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth       import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import *
+
 def home(request):
     return render(request, "aplicacion/home.html")
 
+def acercaDeMi(request):
+    return render(request, 'aplicacion/acercaDeMi.html')
+
+@login_required
 def clientes(request):
     contexto = {'clientes': Cliente.objects.all(), 'titulo' : 'Listado de Clientes'}
     return render(request, "aplicacion/clientes.html", contexto)
 
+@login_required
 def vehiculos(request):
     contexto = {'vehiculos': Vehiculo.objects.all(), 'titulo' : 'Listado de Vehículos'}
     return render(request, "aplicacion/vehiculos.html", contexto)
 
+@login_required
 def mecanicos(request):
     contexto = {'mecanicos': Mecanico.objects.all(), 'titulo' : 'Listado de Mecánicos'}
     return render(request, "aplicacion/mecanicos.html", contexto)
+
 
 def productos(request):
     contexto = {'productos': Producto.objects.all(), 'titulo' : 'Listado de Productos'}
@@ -28,6 +42,7 @@ def autosVenta(request):
     contexto = {'autosVenta': AutosVenta.objects.all(), 'titulo' : 'Listado de Vehículos en venta'}
     return render(request, "aplicacion/autosVenta.html", contexto)
 
+@login_required
 def clientesForm(request):
     if request.method == "POST":
         cliente = Cliente(nombre=request.POST['nombre'],
@@ -37,6 +52,7 @@ def clientesForm(request):
         return HttpResponse("Se grabo con exito el vehiculo")
     return render(request, "aplicacion/clienteForm.html")
 
+@login_required
 def clienteForm2(request):
     if request.method == "POST":
         miForm = ClienteForm(request.POST)
@@ -55,7 +71,7 @@ def clienteForm2(request):
 
     return render(request, "aplicacion/clienteForm2.html", {"form":miForm})
 
-
+@login_required
 def mecanicoForm3(request):
     if request.method == "POST":
         miForm = MecanicoForm(request.POST)
@@ -76,6 +92,7 @@ def mecanicoForm3(request):
 
     return render(request, "aplicacion/mecanicoForm3.html", {"form":miForm})
 
+@login_required
 def vehiculoForm4(request):
     if request.method == "POST":
         miForm = VehiculoForm(request.POST)
@@ -98,7 +115,7 @@ def vehiculoForm4(request):
 
     return render(request, "aplicacion/vehiculoForm4.html", {"form":miForm})
 
-
+@login_required
 def autosVenta_form(request):
     if request.method == "POST":
         miForm = AutosVentaForm(request.POST)
@@ -122,6 +139,7 @@ def autosVenta_form(request):
 
     return render(request, "aplicacion/autosVentaForm.html", {"form": miForm})
 
+@login_required
 def producto_form(request):
     if request.method == "POST":
         miForm = ProductoForm(request.POST)
@@ -142,10 +160,11 @@ def producto_form(request):
     return render(request, "aplicacion/Producto_form.html", {"form": miForm})
 
 
-
+@login_required
 def buscarVehiculos(request):
     return render(request, "aplicacion/buscarVehiculos.html")
 
+@login_required
 def buscar2(request):
     if request.GET['buscar']:
         patron = request.GET['buscar']
@@ -154,6 +173,7 @@ def buscar2(request):
         return render(request,"aplicacion/vehiculos.html", contexto)
     return HttpResponse("No se ingreso nada.")
 
+@login_required
 def modifMecanico(request, id_mecanico):
     mecanico = Mecanico.objects.get(id=id_mecanico)
     if request.method == "POST":
@@ -175,11 +195,13 @@ def modifMecanico(request, id_mecanico):
         })
     return render(request, "aplicacion/mecanicoForm3.html", {"form":miForm})
 
+@login_required
 def deleteMecanico(request, id_mecanico):
     mecanico = Mecanico.objects.get(id=id_mecanico)
     mecanico.delete()
     return redirect(reverse_lazy('mecanicos'))
 
+@login_required
 def modifCliente(request, id_cliente):
     cliente = Cliente.objects.get(id=id_cliente)
     if request.method == "POST":
@@ -199,11 +221,13 @@ def modifCliente(request, id_cliente):
         })
     return render(request, "aplicacion/clienteForm2.html", {"form":miForm})
 
+@login_required
 def deleteCliente(request, id_cliente):
     cliente = Cliente.objects.get(id=id_cliente)
     cliente.delete()
     return redirect(reverse_lazy('clientes'))
 
+@login_required
 def modifVehiculo(request, id_vehiculo):
     vehiculo = Vehiculo.objects.get(id=id_vehiculo)
     if request.method == "POST":
@@ -228,11 +252,13 @@ def modifVehiculo(request, id_vehiculo):
         })
     return render(request, "aplicacion/vehiculoForm4.html", {"form":miForm})
 
+@login_required
 def deleteVehiculo(request, id_vehiculo):
     vehiculo = Vehiculo.objects.get(id=id_vehiculo)
     vehiculo.delete()
     return redirect(reverse_lazy('vehiculos'))
 
+@login_required
 def modifAutoVenta(request, id_autosVenta):
     autosVenta = AutosVenta.objects.get(id=id_autosVenta)
     if request.method == "POST":
@@ -257,11 +283,13 @@ def modifAutoVenta(request, id_autosVenta):
         })
     return render(request, "aplicacion/autosVentaForm_form.html", {"form": miForm})
 
+@login_required
 def deleteAutoVenta(request, id_autosVenta):
     autosVenta = AutosVenta.objects.get(id=id_autosVenta)
     autosVenta.delete()
     return redirect(reverse_lazy('autosVenta'))
 
+@login_required
 def modifProducto(request, id_producto):
     producto = Producto.objects.get(id=id_producto)
     if request.method == "POST":
@@ -272,7 +300,7 @@ def modifProducto(request, id_producto):
             producto.precio = miForm.cleaned_data.get('precio')
             
             producto.save()
-            return redirect(reverse_lazy('producto'))
+            return redirect(reverse_lazy('productos'))
 
     else:
         miForm = ProductoForm(initial={
@@ -281,6 +309,96 @@ def modifProducto(request, id_producto):
             'precio': producto.precio,
         })
     return render(request, "aplicacion/Producto_form.html", {"form": miForm})
+
+@login_required
+def deleteProducto(request, id_producto):
+    producto = Producto.objects.get(id=id_producto)
+    producto.delete()
+    return redirect(reverse_lazy('productos'))
+
+#__________________________Login____________________________#
+
+def login_request(request):
+    if request.method == "POST":
+        miForm = AuthenticationForm(request, data=request.POST)
+        if miForm.is_valid():
+            usuario = miForm.cleaned_data.get('username')
+            password = miForm.cleaned_data.get('password')
+            user = authenticate(username=usuario, password=password)
+            if user is not None:
+                login(request, user)
+
+                try:
+                    Avatar = Avatar.objects.get(user=request.user.id).imagen.url
+                except:
+                    avatar = "/media/avatares/default.png"
+                finally:
+                    request.session["avatar"] = avatar
+
+                return render(request, "aplicacion/base.html", {'mensaje': f"Bienvenido {usuario}!"})
+            else:
+                return render(request, "aplicacion/base.html", {'form': miForm, 'mensaje': "Los datos son inválidos"})
+        else:
+            return render(request, "aplicacion/base.html", {'form': miForm, 'mensaje': "Los datos son inválidos"})
+    
+    miForm = AuthenticationForm()
+
+    return render(request, "aplicacion/login.html", {"form": miForm})
+
+def register(request):
+    if request.method == "POST":
+        miForm = RegistroUsuariosForm(request.POST)
+
+        if miForm.is_valid():
+            usuario = miForm.cleaned_data.get('username')
+            miForm.save()
+            return render(request, "aplicacion/base.html")
+    else:
+        miForm = RegistroUsuariosForm()
+
+    return render(request, "aplicacion/registro.html", {"form": miForm})
+
+@login_required
+def editarPerfil(request):
+    usuario = request.user
+    if request.method == "POST":
+        form = UserEditForm(request.POST)
+        if form.is_valid():
+            usuario.email = form.cleaned_data.get('email')
+            usuario.password1 = form.cleaned_data.get('password1')
+            usuario.password2 = form.cleaned_data.get('password2')
+            usuario.first_name = form.cleaned_data.get('first_name')
+            usuario.last_name = form.cleaned_data.get('last_name')
+            usuario.save()
+            return render(request, "aplicacion/base.html")
+        else:
+            return render(request, "aplicacion/editarPerfil.html", {'form': form, 'usuario': usuario.username})
+    else:
+        form = UserEditForm(instance=usuario)
+    return render(request, "aplicacion/editarPerfil.html", {'form': form, 'usuario': usuario.username})
+
+@login_required
+def agregarAvatar(request):
+    if request.method == "POST":
+        form = AvatarFormulario(request.POST, request.FILES)
+        if form.is_valid():
+            u = User.objects.get(username=request.user)
+
+            avatarViejo = Avatar.objects.filter(user=u)
+            if len(avatarViejo) > 0:
+                for i in range(len(avatarViejo)):
+                    avatarViejo[i].delete()
+
+            avatar=Avatar(user=u, imagen=form.cleaned_data['imagen'])
+            avatar.save()
+
+            imagen = Avatar.objects.get(user=request.user.id).imagen.url
+            request.session["avatar"] = imagen
+            return render(request, "aplicacion/base.html")
+    else:
+        form = AvatarFormulario()
+    return render(request, "aplicacion/agregarAvatar.html", {'form': form})
+
 
 
 

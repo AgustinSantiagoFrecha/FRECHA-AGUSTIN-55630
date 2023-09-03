@@ -9,6 +9,9 @@ urlpatterns = [
     path('mecanicos/', mecanicos, name="mecanicos" ),
     path('productos/', productos, name="productos" ),
     path('autosVenta/', autosVenta, name="autosVenta" ),
+    path('VistaAdmin/', VistaAdmin, name="VistaAdmin" ),
+    path('TablaTurnos/', Turno, name="TablaTurnos" ),
+    #path('ListaTurnos/<id_cliente>', ListaTurnos, name="ListaTurnos" ),
 
     path('cliente_form2/', clienteForm2, name="cliente_form2"),
     path('mecanico_form3/', mecanicoForm3, name="mecanico_form3"),
@@ -33,6 +36,9 @@ urlpatterns = [
 
     path('modifProducto/<id_producto>/', modifProducto, name="modifProducto"),
     path('deleteProducto/<id_producto>/', deleteProducto, name="deleteProducto"),
+
+    #path('lista_Turnos/', lista_turnos, name='lista_turnos'),
+    #path('confirmacion-turno/', confirmacion_turno, name='confirmacion_turno'),S
 
     path('login/', login_request, name="login"),
     path('logout/', LogoutView.as_view(template_name="aplicacion/logout.html"), name="logout"),

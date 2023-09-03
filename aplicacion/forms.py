@@ -32,8 +32,12 @@ class AutosVentaForm(forms.Form):
 class ProductoForm(forms.Form):
     tipo_producto = forms.CharField(max_length=50, required=True)
     marca = forms.CharField(max_length=50, required=True)
-    precio = forms.IntegerField(required=True)
+    precio = forms.DecimalField(max_digits=100, decimal_places=12, widget=forms.NumberInput(attrs={'step': '0.01'}))
     imagen = forms.ImageField(required=True)
+
+class TurnoForm(forms.Form):
+    fecha = forms.DateTimeField()
+
 
 class RegistroUsuariosForm(UserCreationForm):
     email = forms.EmailField(label="Email de usuario")

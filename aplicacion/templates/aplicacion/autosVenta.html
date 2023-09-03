@@ -7,9 +7,10 @@
 
 {% block contenido %}
     <h4>Cantidad de Vehiculos en venta {{ autosVenta|length }}</h4>
-    <h2>Vehículos en venta
+    <h2>Quieres vender tu vehículo en nuestro taller?
     <a href="{% url 'autosVenta_form' %}" class="btn btn-primary btn-sm"><i class="fa fa-plus fa-lg" title="New Record"></i></a>
     </h2>
+    <p>Por solo el 2% del valor de la venta de tu vehículo puedes exhibirlo aquí.</p>
     <table class="table table-dark table-striped">
         <thead>
             <tr>
@@ -19,8 +20,8 @@
                 <th>anio</th>
                 <th>kilometraje</th>
                 <th>precio</th>
-                <th> </th>
                 <th>Acciones</th>
+                <th>Imagenes</th>
             </tr>
         </thead>
         <tbody>
@@ -32,10 +33,6 @@
                 <td>{{ a.anio }}</td>
                 <td>{{ a.kilometraje }}</td>
                 <td>{{ a.precio }}</td>
-                <td>{{ a.acciones }}</td>
-                <td>{% if a.imagen %}</td>
-                <td><img src="{{ a.imagen.url }}" alt="auto"></td>
-                <td>{% endif %}</td>
                 <td>
                     <a href="{% url 'modifAutoVenta' id_autosVenta=a.id %}" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                         <i class="fa fa-edit fa-sm" title="Edit Record"></i>
@@ -44,8 +41,16 @@
                         <i class="fa fa-trash fa-sm" title="Delete Record"></i>
                     </a>
                 </td>
+                <td>
+                    {% if a.imagen %}
+                        <img src="{{ a.imagen.url }}" alt="auto" style="max-width: 200px;">
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 {% endblock contenido %}
+
+
+

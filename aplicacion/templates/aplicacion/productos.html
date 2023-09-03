@@ -9,7 +9,7 @@
 {% block contenido %}
     <h1>{{ titulo }}</h1>
     <h4>Cantidad de Productos {{ productos|length }}</h4>
-    <h2>Clientes
+    <h2>Productos
         <tr>
             <td>
                 <a
@@ -26,8 +26,8 @@
                 <th>tipo_producto</th>
                 <th>marca</th>
                 <th>precio</th>
-                <th> </th>
                 <th>Acciones</th>
+                <th>Imagenes</th>
             </tr>
         </thead>
         <tbody>
@@ -37,7 +37,6 @@
                 <td> {{ p.tipo_producto }} </td>
                 <td> {{ p.marca }} </td>
                 <td> {{ p.precio }} </td>
-                <td> {{ p.acciones }} </td>
                 <td>
                     <a
                     href="{% url 'modifProducto' id_producto=p.id %}"
@@ -50,6 +49,11 @@
                         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
                         ><i class="fa fa-trash fa-sm" title="Delete Record"></i>
                     </a>
+                </td>
+                <td>
+                    {% if p.imagen %}
+                        <img src="{{ p.imagen.url }}" alt="auto" style="max-width: 200px;">
+                    {% endif %}
                 </td>
             </tr>
             

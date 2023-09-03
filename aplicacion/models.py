@@ -43,6 +43,13 @@ class AutosVenta(models.Model):
     def __str__(self):
         return f"{self.modelo}, {self.marca}"
     
+class Turno(models.Model):
+    fecha = models.DateTimeField()
+
+    def __str__(self):
+        return f"{self.fecha}"
+
+    
 class Producto(models.Model):
     tipo_producto = models.CharField(max_length=50)
     marca = models.CharField(max_length=50)

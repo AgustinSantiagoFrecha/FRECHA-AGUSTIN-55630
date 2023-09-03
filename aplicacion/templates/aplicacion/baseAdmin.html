@@ -25,12 +25,17 @@
                 <a class="navbar-brand" href="{% url 'home' %}">inicio</a>
                 <a class="navbar-brand" href="{% url 'autosVenta' %}">Vehículos en venta</a>
                 <a class="navbar-brand" href="{% url 'productos' %}">Productos</a>
-                <a class="navbar-brand" href="{% url 'TablaTurnos' %}">Pedir turno</a>
                 <a class="navbar-brand" href="{% url 'acercaDeMi' %}">Acerca de mí</a>
-                <a class="navbar-brand" href="{% url 'VistaAdmin' %}">Vista Admin</a>
+                <a class="navbar-brand" href="{% url 'VistaAdmin' %}"></a>
                 {% if user.is_authenticated %}
                     
                     <a class="navbar-brand" href="{% url 'mecanicos' %}">Mecánicos</a>
+                    <a class="navbar-brand" href="{% url 'clientes' %}">Clientes</a>
+                    
+
+                    
+                    <a class="navbar-brand" href="{% url 'vehiculos' %}">Vehículos</a>
+                    <a class="navbar-brand" href="{% url 'buscar_vehiculo' %}">Buscar Vehículos</a>
                     <p style="color:green">Hola {{user.username}}</p>
                     <div class="text-center">
                         <img src="{{ request.session.avatar }}" height="40px" weight="40px">    

@@ -100,20 +100,23 @@ def mecanicoForm3(request):
 @permission_required('')
 def vehiculoForm4(request):
     if request.method == "POST":
-        miForm = VehiculoForm(request.POST)
+        miForm = VehiculoForm(request.POST, request.FILES)
         if miForm.is_valid():
             vehiculo_marca = miForm.cleaned_data.get('marca')
             vehiculo_modelo = miForm.cleaned_data.get('modelo')
             vehiculo_ano = miForm.cleaned_data.get('ano')
             vehiculo_propietario = miForm.cleaned_data.get('propietario')
             vehiculo_problema = miForm.cleaned_data.get('problema')
+            vehiculo_imagen = miForm.cleaned_data.get('imagen')
+
             vehiculo = Vehiculo(marca=vehiculo_marca,
                               modelo=vehiculo_modelo,
                               ano=vehiculo_ano,
                               propietario=vehiculo_propietario,
-                              problema=vehiculo_problema)
+                              problema=vehiculo_problema,
+                              imagen=vehiculo_imagen)
             vehiculo.save()
-            return render(request, "aplicacion/base.html")
+            return render(request, "aplicacion/vehiculoForm4.html", {"form": miForm})
 
     else:
         miForm = VehiculoForm()
@@ -124,7 +127,7 @@ def vehiculoForm4(request):
 @permission_required('')
 def autosVenta_form(request):
     if request.method == "POST":
-        miForm = AutosVentaForm(request.POST)
+        miForm = AutosVentaForm(request.POST, request.FILES)
         if miForm.is_valid():
             autosVenta_marca = miForm.cleaned_data.get('marca')
             autosVenta_modelo = miForm.cleaned_data.get('modelo')
@@ -140,7 +143,7 @@ def autosVenta_form(request):
                                     precio=autosVenta_precio,
                                     imagen=autosVenta_imagen)
             autosVenta.save()
-            return render(request, "aplicacion/base.html")
+            return render(request, "aplicacion/autosVentaForm_form.html")
 
     else:
         miForm = AutosVentaForm()
@@ -151,15 +154,18 @@ def autosVenta_form(request):
 @permission_required('')
 def producto_form(request):
     if request.method == "POST":
-        miForm = ProductoForm(request.POST)
+        miForm = ProductoForm(request.POST, request.FILES)
         if miForm.is_valid():
             producto_tipo_producto = miForm.cleaned_data.get('tipo_producto')
             producto_marca = miForm.cleaned_data.get('marca')
-            producto_precio = miForm.cleaned_data.get('precio')  
+            producto_precio = miForm.cleaned_data.get('precio')
+            producto_imagen = miForm.cleaned_data.get('imagen')
+
             
             producto = Producto(tipo_producto=producto_tipo_producto,
                                     marca=producto_marca,
-                                    precio=producto_precio)
+                                    precio=producto_precio,
+                                    imagen=producto_imagen)
             producto.save()
             return render(request, "aplicacion/base.html")
 
@@ -245,13 +251,14 @@ def deleteCliente(request, id_cliente):
 def modifVehiculo(request, id_vehiculo):
     vehiculo = Vehiculo.objects.get(id=id_vehiculo)
     if request.method == "POST":
-        miForm = VehiculoForm(request.POST)
+        miForm = VehiculoForm(request.POST, request.FILES)
         if miForm.is_valid():
             vehiculo.marca = miForm.cleaned_data.get('marca')
             vehiculo.modelo = miForm.cleaned_data.get('modelo')
             vehiculo.ano = miForm.cleaned_data.get('ano')
             vehiculo.propietario = miForm.cleaned_data.get('propietario')
             vehiculo.problema = miForm.cleaned_data.get('problema')
+            vehiculo.imagen = miForm.cleaned_data.get('imagen')
 
             vehiculo.save()
             return redirect(reverse_lazy('vehiculos'))
@@ -263,6 +270,7 @@ def modifVehiculo(request, id_vehiculo):
             'ano': vehiculo.ano,
             'propietario': vehiculo.propietario,
             'problema': vehiculo.problema,
+            'imagen': vehiculo.imagen,
         })
     return render(request, "aplicacion/vehiculoForm4.html", {"form":miForm})
 
@@ -312,11 +320,12 @@ def deleteAutoVenta(request, id_autosVenta):
 def modifProducto(request, id_producto):
     producto = Producto.objects.get(id=id_producto)
     if request.method == "POST":
-        miForm = ProductoForm(request.POST)
+        miForm = ProductoForm(request.POST, request.FILES)
         if miForm.is_valid():
             producto.tipo_producto = miForm.cleaned_data.get('tipo_producto')
             producto.marca = miForm.cleaned_data.get('marca')
             producto.precio = miForm.cleaned_data.get('precio')
+            producto.imagen = miForm.cleaned_data['imagen']
             
             producto.save()
             return redirect(reverse_lazy('productos'))
@@ -326,6 +335,7 @@ def modifProducto(request, id_producto):
             'tipo_producto': producto.tipo_producto,
             'marca': producto.marca,
             'precio': producto.precio,
+            'imagen': producto.imagen
         })
     return render(request, "aplicacion/Producto_form.html", {"form": miForm})
 
@@ -335,6 +345,20 @@ def deleteProducto(request, id_producto):
     producto = Producto.objects.get(id=id_producto)
     producto.delete()
     return redirect(reverse_lazy('productos'))
+
+#def porcentajeVenta():
+    venta = int(input("Valor venta vehículo:"))
+    resultado = (venta*2)/100
+
+
+@permission_required('')
+def VistaAdmin(request):
+    return render(request, "aplicacion/baseAdmin.html")
+
+@login_required
+def Turno(request):
+    return render(request, "aplicacion/TablaTurnos.html")
+
 
 #__________________________Login____________________________#
 

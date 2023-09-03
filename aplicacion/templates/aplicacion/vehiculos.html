@@ -1,4 +1,4 @@
-{% extends 'aplicacion/base.html' %}
+{% extends 'aplicacion/baseAdmin.html' %}
 {% load static %}
 
 {% block titulo %}
@@ -28,8 +28,8 @@
                 <th>ano</th>
                 <th>propietario</th>
                 <th>problema</th>
-                <th> </th>
-                <th>acciones</th>
+                <th>Acciones</th>
+                <th>Imagenes</th>
             </tr>
         </thead>
         <tbody>
@@ -41,24 +41,22 @@
                 <td> {{ v.ano }} </td>
                 <td> {{ v.propietario }} </td>
                 <td> {{ v.problema }} </td>
-                <td> {{ v.acciones }} </td>
                 <td>
-                    <a
-                    href="{% url 'modifVehiculo' id_vehiculo=v.id %}"
-                    class="btn btn-primary"
-                    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                    ><i class="fa fa-edit fa-sm" title="Edit Record"></i>
+                    <a href="{% url 'modifVehiculo' id_vehiculo=v.id %}" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                        <i class="fa fa-edit fa-sm" title="Edit Record"></i>
                     </a>
                     <a
-                        href="{% url 'deleteVehiculo' id_vehiculo=v.id %}"
-                        class="btn btn-danger"
-                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                        ><i class="fa fa-trash fa-sm" title="Delete Record"></i>
+                        href="{% url 'deleteVehiculo' id_vehiculo=v.id %}" class="btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                        <i class="fa fa-trash fa-sm" title="Delete Record"></i>
                     </a>
                 </td>
+                <td>
+                    {% if v.imagen %}
+                        <img src="{{ v.imagen.url }}" alt="auto" style="max-width: 200px;"></td>
+                    {% endif %}
+                </td>
             </tr>
-            
-    {% endfor %}
+            {% endfor %}
         </tbody>
-</table>       
+    </table>       
 {% endblock contenido %}

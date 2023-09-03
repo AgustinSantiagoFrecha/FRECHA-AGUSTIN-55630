@@ -116,7 +116,7 @@ def vehiculoForm4(request):
                               problema=vehiculo_problema,
                               imagen=vehiculo_imagen)
             vehiculo.save()
-            return render(request, "aplicacion/vehiculoForm4.html", {"form": miForm})
+            return render(request, "aplicacion/baseAdmin.html", {"form": miForm})
 
     else:
         miForm = VehiculoForm()
@@ -354,10 +354,6 @@ def deleteProducto(request, id_producto):
 @permission_required('')
 def VistaAdmin(request):
     return render(request, "aplicacion/baseAdmin.html")
-
-@login_required
-def Turno(request):
-    return render(request, "aplicacion/TablaTurnos.html")
 
 
 #__________________________Login____________________________#
